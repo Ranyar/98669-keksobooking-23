@@ -20,7 +20,7 @@ getRandomFloatInteger(0, 100, 2);
 function getAvatarNumber () {
   let randomInteger = getRandomInteger(0, 10);
   if (`${randomInteger}`.length < 2) {
-    randomInteger = '0' + randomInteger;
+    randomInteger = `0${  randomInteger}`;
   }
   return randomInteger;
 }
