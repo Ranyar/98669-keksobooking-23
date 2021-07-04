@@ -1,8 +1,10 @@
 const ADS_COUNT = 10;
-const latMin = 35.65000;
-const latMax = 35.70000;
-const lngMin = 139.70000;
-const lngMax = 139.80000;
+const LAT_MIN = 35.65000;
+const LAT_MAX = 35.70000;
+const LNG_MIN = 139.70000;
+const LNG_MAX = 139.80000;
+const PRICE_MIN = 100;
+const PRICE_MAX = 100000;
 
 const TYPES = [
   'palace',
@@ -40,11 +42,9 @@ const PHOTOS_LIST = [
 ];
 
 const apartmentCoordinates = {
-  lat: getRandomFloatInteger(latMin, latMax, 5),
-  lng: getRandomFloatInteger(lngMin, lngMax, 5),
+  lat: getRandomFloatInteger(LAT_MIN, LAT_MAX, 5),
+  lng: getRandomFloatInteger(LNG_MIN, LNG_MAX, 5),
 };
-
-const adsSet = [];
 
 function getRandomInteger(min, max) {
   if (min >= 0 && max > min) {
@@ -75,6 +75,7 @@ function getRandomArrayLines (array)  {
 }
 
 function getAdsSet(adsNumber) {
+  const adsSet = [];
   for (let i = 0; i < adsNumber; i++) {
     adsSet.push(
       {
@@ -88,7 +89,7 @@ function getAdsSet(adsNumber) {
         offer: {
           title: 'Тестовый заголовок',
           address: `${apartmentCoordinates.lat}, ${apartmentCoordinates.lng}`,
-          price: getRandomInteger(100, 100000),
+          price: getRandomInteger(PRICE_MIN, PRICE_MAX),
           type: TYPES[getRandomInteger(0, 4)],
           rooms: getRandomInteger(1, 5),
           guests: getRandomInteger(1, 8),
@@ -101,7 +102,7 @@ function getAdsSet(adsNumber) {
       },
     );
   }
+  //console.log(adsSet);
 }
 
 getAdsSet(ADS_COUNT);
-//console.log(adsSet);
