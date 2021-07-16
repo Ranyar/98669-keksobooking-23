@@ -1,4 +1,4 @@
-import {ADS_COUNT,
+import {
   PRICE_MIN,
   PRICE_MAX,
   TYPES,
@@ -9,7 +9,8 @@ import {ADS_COUNT,
   apartmentCoordinates,
   getRandomInteger,
   getAvatarNumber,
-  getRandomArrayLines} from './util.js';
+  getRandomArrayLines
+} from './util.js';
 
 function getAdsSet(adsNumber) {
   const adsSet = [];
@@ -39,9 +40,7 @@ function getAdsSet(adsNumber) {
       },
     );
   }
-  //console.log(adsSet);
+  return adsSet;
 }
-
-getAdsSet(ADS_COUNT);
 
 export {getAdsSet};
