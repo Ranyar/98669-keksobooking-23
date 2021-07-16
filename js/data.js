@@ -42,6 +42,4 @@ function getAdsSet(adsNumber) {
   //console.log(adsSet);
 }
 
-getAdsSet(ADS_COUNT);
-
 export {getAdsSet};
