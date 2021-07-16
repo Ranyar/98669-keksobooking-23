@@ -1,8 +1,7 @@
 import {getAdsSet} from './data.js';
-import {ADS_COUNT} from './util.js';
 
-const getAdsMarkup = function (ADS_COUNT) {
-  const adData = getAdsSet(ADS_COUNT);
+const getAdsMarkup = function (adsNumber) {
+  const adData = getAdsSet(adsNumber);
   const canvas = document.querySelector('#map-canvas');
   const adTemplate = document.querySelector('#card').content.querySelector('.popup');
   const typesMap = {
@@ -13,7 +12,11 @@ const getAdsMarkup = function (ADS_COUNT) {
     'hotel': 'Отель',
   };
 
-  for (let i = 0; i < ADS_COUNT; i++) {
+  canvas.style.display = 'flex';
+  canvas.style.justifyContent = 'space-around';
+  canvas.style.padding = '10px';
+
+  for (let i = 0; i < adsNumber; i++) {
     const offerHtml = adTemplate.cloneNode(true);
     const offerTitle = offerHtml.querySelector('.popup__title');
     const offerAddress = offerHtml.querySelector('.popup__text--address');
