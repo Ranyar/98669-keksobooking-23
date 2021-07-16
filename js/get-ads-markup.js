@@ -14,6 +14,7 @@ const getAdsMarkup = function (adsNumber) {
 
   canvas.style.display = 'flex';
   canvas.style.justifyContent = 'space-around';
+  canvas.style.flexWrap = 'wrap';
   canvas.style.padding = '10px';
 
   for (let i = 0; i < adsNumber; i++) {
@@ -47,51 +48,51 @@ const getAdsMarkup = function (adsNumber) {
     }
 
     // Price
-    if (!adData[i].price) {
+    if (!adData[i].offer.price) {
       offerPrice.remove();
     } else {
       offerPrice.innerHTML = `
-        ${adData[i].price} <span>₽/ночь</span>
+        ${adData[i].offer.price} <span>₽/ночь</span>
       `;
     }
 
     // Type
-    if (!adData[i].type) {
+    if (!adData[i].offer.type) {
       offerType.remove();
     } else {
-      offerType.textContent = typesMap[adData[i].type];
+      offerType.textContent = typesMap[adData[i].offer.type];
     }
 
     // Rooms
-    if (!adData[i].rooms && !adData[i].guests) {
+    if (!adData[i].offer.rooms && !adData[i].offer.guests) {
       offerCapacity.remove();
     } else {
       let roomsCorrectText = 'комнат';
-      if (adData[i].rooms === 1) {
+      if (adData[i].offer.rooms === 1) {
         roomsCorrectText = 'комната';
       }
-      if (adData[i].rooms > 1 && adData[i].rooms < 5) {
+      if (adData[i].offer.rooms > 1 && adData[i].offer.rooms < 5) {
         roomsCorrectText = 'комнаты';
       }
-      offerCapacity.textContent = `${adData[i].rooms} ${roomsCorrectText} для ${adData[i].guests} гостей`;
+      offerCapacity.textContent = `${adData[i].offer.rooms} ${roomsCorrectText} для ${adData[i].offer.guests} гостей`;
     }
 
     // Checkin&checkout
-    if (!adData[i].checkin && !adData[i].checkout) {
+    if (!adData[i].offer.checkin && !adData[i].offer.checkout) {
       offerCheckInOut.remove();
     } else {
       offerCheckInOut.textContent = `
-        Заезд после ${adData[i].checkin}, выезд до ${adData[i].checkout};
+        Заезд после ${adData[i].offer.checkin}, выезд до ${adData[i].offer.checkout};
       `;
     }
 
     // Features
-    if (!adData[i].features.length === 0) {
+    if (!adData[i].offer.features) {
       offerFeatures.remove();
     } else {
       const featuresAll = offerFeatures.querySelectorAll('.popup__feature');
       offerFeatures.innerHTML = '';
-      const featuresAvailable = adData[i].features.map((item) => `popup__feature--${item}`);
+      const featuresAvailable = adData[i].offer.features.map((item) => `popup__feature--${item}`);
       featuresAvailable.forEach((featureAvailable) => {
         featuresAll.forEach((feature) => {
           if (feature.classList.contains(featureAvailable)) {
@@ -102,18 +103,18 @@ const getAdsMarkup = function (adsNumber) {
     }
 
     // Description
-    if (!adData[i].description) {
+    if (!adData[i].offer.description) {
       offerDescription.remove();
     } else {
-      offerDescription.textContent = adData[i].description;
+      offerDescription.textContent = adData[i].offer.description;
     }
 
     // Photo
-    if (adData[i].photos.length === 0) {
+    if (!adData[i].offer.photos) {
       offerPhotos.remove();
     } else {
       offerPhotos.innerHTML = '';
-      adData[i].photos.forEach((photo) => {
+      adData[i].offer.photos.forEach((photo) => {
         offerPhotos.insertAdjacentHTML(
           'afterbegin',
           `<img src="${photo}" class="popup__photo" width="45" height="40" alt="Фотография жилья">`,
