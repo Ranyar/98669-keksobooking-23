@@ -79,9 +79,9 @@ const roomNumberCapacityHandler = (evt) => {
 
 roomNumber.addEventListener('change', roomNumberCapacityHandler);
 
-const synchronizePriceWithTypeHandler = (evt) => {
+const priceTypeHandler = (evt) => {
   price.setAttribute('min', minPrices[evt.target.value]);
   price.setAttribute('placeholder', minPrices[evt.target.value]);
 };
 
-type.addEventListener('change', synchronizePriceWithTypeHandler);
+type.addEventListener('change', priceTypeHandler);
