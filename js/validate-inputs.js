@@ -1,3 +1,4 @@
+const MAX_PRICE = 1000000;
 const adForm = document.querySelector('.ad-form');
 const title = adForm.querySelector('#title');
 const timein = adForm.querySelector('#timein');
@@ -6,6 +7,7 @@ const type = adForm.querySelector('#type');
 const price = adForm.querySelector('#price');
 const roomNumber = adForm.querySelector('#room_number');
 const capacity = adForm.querySelector('#capacity');
+const minLength = 30;
 const minPrices = {
   'bungalow': 0,
   'flat': 1000,
@@ -13,7 +15,6 @@ const minPrices = {
   'house': 5000,
   'palace': 10000,
 };
-const MAX_PRICE = 1000000;
 const capacityOptions = {
   1: `
     <option value="1" selected>для 1 гостя</option>
@@ -34,7 +35,6 @@ const capacityOptions = {
 
 const titleInputHandler = (evt) => {
   const length = evt.target.value.length;
-  const minLength = +evt.getAttribute('minlength');
 
   if (evt.target.validity.tooShort) {
     evt.target.setCustomValidity(`Необходимо еще ${minLength - length} символов`);
