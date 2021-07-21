@@ -2,7 +2,6 @@ import {getAdsSet} from './data.js';
 
 const getAdsMarkup = function (adsNumber) {
   const adData = getAdsSet(adsNumber);
-  const canvas = document.querySelector('#map-canvas');
   const adTemplate = document.querySelector('#card').content.querySelector('.popup');
   const typesMap = {
     'flat': 'Квартира',
@@ -11,11 +10,6 @@ const getAdsMarkup = function (adsNumber) {
     'palace': 'Дворец',
     'hotel': 'Отель',
   };
-
-  canvas.style.display = 'flex';
-  canvas.style.justifyContent = 'space-around';
-  canvas.style.flexWrap = 'wrap';
-  canvas.style.padding = '10px';
 
   for (let i = 0; i < adsNumber; i++) {
     const offerHtml = adTemplate.cloneNode(true);
@@ -121,7 +115,7 @@ const getAdsMarkup = function (adsNumber) {
         );
       });
     }
-    canvas.appendChild(offerHtml);
+    return offerHtml;
   }
 };
 export {getAdsMarkup};

@@ -1,12 +1,14 @@
 import './data.js';
 import {getAdsMarkup} from './get-ads-markup.js';
 import {ADS_COUNT} from './util.js';
-import {disablePage, enablePage} from './page-activity-switcher.js';
+import {disablePage} from './page-activity-switcher.js';
 import './validate-inputs.js';
+import  { loadMap, generateSimilarAds } from './map-leaflet.js';
 
 getAdsMarkup(ADS_COUNT);
 
-disablePage();
-//Реализуем проверку работы активации форм по клику в зону логотипа.
-document.querySelector('.promo').addEventListener('click', enablePage);
+window.addEventListener('DOMContentLoaded', () => {
 
+  loadMap();
+  generateSimilarAds(5);
+});
