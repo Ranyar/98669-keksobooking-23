@@ -1,12 +1,16 @@
-import './data.js';
-import {getAdsMarkup} from './get-ads-markup.js';
-import {ADS_COUNT} from './util.js';
-import {disablePage, enablePage} from './page-activity-switcher.js';
-import './validate-inputs.js';
-
-getAdsMarkup(ADS_COUNT);
+import {replaceSubmitHandler} from './forms.js';
+import {disablePage} from './page-activity-switcher.js';
+import {loadMap} from './map-leaflet.js';
+import {validateInputs} from './validate-inputs.js';
+import {replaceResetHandler, showImagePreview} from './forms.js';
+import {setFilterChangeHandler} from './filters.js';
 
 disablePage();
-//Реализуем проверку работы активации форм по клику в зону логотипа.
-document.querySelector('.promo').addEventListener('click', enablePage);
+loadMap();
+validateInputs();
+replaceSubmitHandler('.ad-form');
+replaceResetHandler('.ad-form');
+setFilterChangeHandler();
+showImagePreview('#avatar', '.ad-form-header__preview', 'Аватар пользователя', 70);
+showImagePreview('#images', '.ad-form__photo', 'Фото помещения', 70);
 
