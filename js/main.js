@@ -1,14 +1,16 @@
-import './data.js';
-import {getAdsMarkup} from './get-ads-markup.js';
-import {ADS_COUNT} from './util.js';
+import {replaceSubmitHandler} from './forms.js';
 import {disablePage} from './page-activity-switcher.js';
-import './validate-inputs.js';
-import  { loadMap, generateSimilarAds } from './map-leaflet.js';
+import {loadMap} from './map-leaflet.js';
+import {validateInputs} from './validate-inputs.js';
+import {replaceResetHandler, showImagePreview} from './forms.js';
+import {setFilterChangeHandler} from './filters.js';
 
-getAdsMarkup(ADS_COUNT);
+disablePage();
+loadMap();
+validateInputs();
+replaceSubmitHandler('.ad-form');
+replaceResetHandler('.ad-form');
+setFilterChangeHandler();
+showImagePreview('#avatar', '.ad-form-header__preview', 'Аватар пользователя', 70);
+showImagePreview('#images', '.ad-form__photo', 'Фото помещения', 70);
 
-window.addEventListener('DOMContentLoaded', () => {
-
-  loadMap();
-  generateSimilarAds(5);
-});

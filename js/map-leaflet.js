@@ -1,14 +1,11 @@
-import {enablePage} from './page-activity-switcher.js';
+import {enablePage, enableFilters} from './page-activity-switcher.js';
 import {getAdsMarkup} from './get-ads-markup.js';
-
-const FRAME_CENTER_COORDS = {
-  lat: 35.67500,
-  lng: 139.75000,
-};
-const MAIN_MARKER_SIZE = [52, 52];
-const SECONDARY_MARKER_SIZE = [40, 40];
+import {getData, showLoadFailMessage, cachedData} from './get-data.js';
+import {filterData} from './filters.js';
+import {FRAME_CENTER_COORDS, MAIN_MARKER_SIZE, SECONDARY_MARKER_SIZE, ADS_NUMBER_TO_SHOW} from './settings.js';
 
 const map = L.map('map-canvas');
+const markersLayer = L.layerGroup().addTo(map);
 const addressInput = document.querySelector('#address');
 
 const mainMarkerIcon = L.icon({
@@ -26,6 +23,51 @@ const mainMarker = L.marker(
     icon: mainMarkerIcon,
   },
 );
+
+const secondaryMarkerIcon = L.icon({
+  iconUrl: '../leaflet/images/marker-icon.png',
+  iconSize: SECONDARY_MARKER_SIZE,
+  iconAnchor: [SECONDARY_MARKER_SIZE[0] / 2, SECONDARY_MARKER_SIZE[1]],
+  shadowUrl: '../leaflet/images/marker-shadow.png',
+  shadowSize: [SECONDARY_MARKER_SIZE[0] * 2, SECONDARY_MARKER_SIZE[1] * 2],
+  shadowAnchor: [SECONDARY_MARKER_SIZE[0] / 2, SECONDARY_MARKER_SIZE[1] * 2],
+});
+
+const generateSimilarAds = (numberOfAds) => {
+  const adsData = getData(showLoadFailMessage);
+  adsData
+    .then((dataArray) => dataArray.slice(0, numberOfAds))
+    .then((dataArray) => {
+      dataArray.forEach((dataItem) => {
+        const adHTML = getAdsMarkup(dataItem);
+        const secondaryMarkerCoords = dataItem.location;
+        const secondaryMarker = L.marker(
+          secondaryMarkerCoords,
+          {
+            icon: secondaryMarkerIcon,
+          },
+        );
+        secondaryMarker.addTo(markersLayer).bindPopup(adHTML);
+      });
+    })
+    .then(() => enableFilters());
+};
+
+const renderAdsFromCache = (numberOfAds) => {
+  markersLayer.clearLayers();
+  const adsData = filterData(cachedData, numberOfAds);
+  adsData.forEach((dataItem) => {
+    const adHTML = getAdsMarkup(dataItem);
+    const secondaryMarkerCoords = dataItem.location;
+    const secondaryMarker = L.marker(
+      secondaryMarkerCoords,
+      {
+        icon: secondaryMarkerIcon,
+      },
+    );
+    secondaryMarker.addTo(markersLayer).bindPopup(adHTML);
+  });
+};
 
 const loadMap = () => {
   map.on('load', enablePage)
@@ -49,35 +91,15 @@ const loadMap = () => {
     const longitude = latLng.lng.toFixed(5);
     addressInput.value = `${latitude}, ${longitude}`;
   });
+
+  generateSimilarAds(ADS_NUMBER_TO_SHOW);
 };
 
-// const resetMap = () => {
-//   map.setView(FRAME_CENTER_COORDS, 11);
-//   mainMarker.setLatLng(FRAME_CENTER_COORDS);
-// };
-
-const secondaryMarkerIcon = L.icon({
-  iconUrl: '../leaflet/images/marker-icon.png',
-  iconSize: SECONDARY_MARKER_SIZE,
-  iconAnchor: [SECONDARY_MARKER_SIZE[0] / 2, SECONDARY_MARKER_SIZE[1]],
-  shadowUrl: '../leaflet/images/marker-shadow.png',
-  shadowSize: [SECONDARY_MARKER_SIZE[0] * 2, SECONDARY_MARKER_SIZE[1] * 2],
-  shadowAnchor: [SECONDARY_MARKER_SIZE[0] / 2, SECONDARY_MARKER_SIZE[1] * 2],
-});
-
-const generateSimilarAds = (numberOfAds) => {
-  for (let i = 0; i < numberOfAds; i++) {
-    const popupHTML = getAdsMarkup(1);
-    const secondaryMarkerCoords = popupHTML.querySelector('.popup__text--address').textContent.split(',');
-    const newLayer = L.layerGroup().addTo(map);
-    const secondaryMarker = L.marker(
-      secondaryMarkerCoords,
-      {
-        icon: secondaryMarkerIcon,
-      },
-    );
-    secondaryMarker.addTo(newLayer).bindPopup(popupHTML);
-  }
+const resetMap = () => {
+  map.setView(FRAME_CENTER_COORDS, 13);
+  mainMarker.setLatLng(FRAME_CENTER_COORDS);
+  addressInput.value = `${FRAME_CENTER_COORDS.lat.toFixed(5)}, ${FRAME_CENTER_COORDS.lng.toFixed(5)}`;
+  renderAdsFromCache(ADS_NUMBER_TO_SHOW);
 };
 
-export {loadMap, generateSimilarAds};
+export { loadMap, resetMap, renderAdsFromCache };
