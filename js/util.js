@@ -10,7 +10,7 @@ const debounce = (callback, timeoutDelay = 500) => {
   return () => {
     clearTimeout(timeoutId);
     clearTimeout(resetCallCounterId);
-    resetCallCounterId = setTimeout(() => callCounter = 0, timeoutDelay);
+    resetCallCounterId = setTimeout(() => callCounter, timeoutDelay);
     if (callCounter === 0) {
       callback();
       callCounter++;

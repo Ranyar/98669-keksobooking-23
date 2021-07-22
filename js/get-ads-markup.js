@@ -40,8 +40,8 @@ const getAdsMarkup = function (adItem) {
   if (!adItem.offer.price) {
     offerPrice.remove();
   } else {
-    offerPrice.innerHTML = `
-        ${adItem.offer.price} <span>₽/ночь</span>
+    offerPrice.textContent = `
+        ${adItem.offer.price} ₽/ночь
       `;
   }
 

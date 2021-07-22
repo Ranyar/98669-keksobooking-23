@@ -63,29 +63,29 @@ const validateInputs = () => {
 
   price.addEventListener('input', priceInputHandler);
 
-  const timeoutHandler = () => {
+  const timeoutSetHandler = () => {
     timeout.value = timein.value;
   };
 
-  const timeinHandler = () => {
+  const timeinSetHandler = () => {
     timein.value = timeout.value;
   };
 
-  timein.addEventListener('change', timeoutHandler);
-  timeout.addEventListener('change', timeinHandler);
+  timein.addEventListener('change', timeoutSetHandler);
+  timeout.addEventListener('change', timeinSetHandler);
 
-  const roomNumberCapacityHandler = (evt) => {
+  const roomNumberSetHandler = (evt) => {
     capacity.innerHTML = capacityOptions[evt.target.value];
   };
 
-  roomNumber.addEventListener('change', roomNumberCapacityHandler);
+  roomNumber.addEventListener('change', roomNumberSetHandler);
 
-  const priceTypeHandler = (evt) => {
+  const priceSynchronizeHandler = (evt) => {
     price.setAttribute('min', minPrices[evt.target.value]);
     price.setAttribute('placeholder', minPrices[evt.target.value]);
   };
 
-  type.addEventListener('change', priceTypeHandler);
+  type.addEventListener('change', priceSynchronizeHandler);
 };
 
 const resetInputs = (form) => {
