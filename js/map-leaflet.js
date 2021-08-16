@@ -9,7 +9,7 @@ const markersLayer = L.layerGroup().addTo(map);
 const addressInput = document.querySelector('#address');
 
 const mainMarkerIcon = L.icon({
-  iconUrl: 'leaflet/images/marker-icon-2x.png',
+  iconUrl: 'leaflet/images/main-pin.svg',
   iconSize: MAIN_MARKER_SIZE,
   iconAnchor: [MAIN_MARKER_SIZE[0] / 2, MAIN_MARKER_SIZE[1]],
   shadowUrl: 'leaflet/images/marker-shadow.png',
@@ -25,7 +25,7 @@ const mainMarker = L.marker(
 );
 
 const secondaryMarkerIcon = L.icon({
-  iconUrl: 'leaflet/images/marker-icon.png',
+  iconUrl: 'leaflet/images/pin.svg',
   iconSize: SECONDARY_MARKER_SIZE,
   iconAnchor: [SECONDARY_MARKER_SIZE[0] / 2, SECONDARY_MARKER_SIZE[1]],
   shadowUrl: 'leaflet/images/marker-shadow.png',
