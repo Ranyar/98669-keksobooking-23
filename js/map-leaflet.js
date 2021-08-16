@@ -9,10 +9,10 @@ const markersLayer = L.layerGroup().addTo(map);
 const addressInput = document.querySelector('#address');
 
 const mainMarkerIcon = L.icon({
-  iconUrl: '../leaflet/images/marker-icon-2x.png',
+  iconUrl: 'leaflet/images/marker-icon-2x.png',
   iconSize: MAIN_MARKER_SIZE,
   iconAnchor: [MAIN_MARKER_SIZE[0] / 2, MAIN_MARKER_SIZE[1]],
-  shadowUrl: '../leaflet/images/marker-shadow.png',
+  shadowUrl: 'leaflet/images/marker-shadow.png',
   shadowSize: [MAIN_MARKER_SIZE[0] * 2, MAIN_MARKER_SIZE[1] * 2],
   shadowAnchor: [MAIN_MARKER_SIZE[0] / 2, MAIN_MARKER_SIZE[1] * 2],
 });
@@ -25,10 +25,10 @@ const mainMarker = L.marker(
 );
 
 const secondaryMarkerIcon = L.icon({
-  iconUrl: '../leaflet/images/marker-icon.png',
+  iconUrl: 'leaflet/images/marker-icon.png',
   iconSize: SECONDARY_MARKER_SIZE,
   iconAnchor: [SECONDARY_MARKER_SIZE[0] / 2, SECONDARY_MARKER_SIZE[1]],
-  shadowUrl: '../leaflet/images/marker-shadow.png',
+  shadowUrl: 'leaflet/images/marker-shadow.png',
   shadowSize: [SECONDARY_MARKER_SIZE[0] * 2, SECONDARY_MARKER_SIZE[1] * 2],
   shadowAnchor: [SECONDARY_MARKER_SIZE[0] / 2, SECONDARY_MARKER_SIZE[1] * 2],
 });
